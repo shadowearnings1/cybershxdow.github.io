@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abraham Emmanuel | Cybersecurity Specialist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+  :root {
+    --green: #00ff41;
+    --cyan: #00e5ff;
+    --dark: #0a0a0a;
+    --darker: #050505;
+    --card: #0f1a0f;
+    --border: #00ff4133;
+    --text: #c8ffc8;
+    --dim: #4a7a4a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--darker); color: var(--text); font-family: 'Share Tech Mono', monospace; overflow-x: hidden; }
+
+  #matrix { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; opacity:0.04; pointer-events:none; }
+  section, nav { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; width:100%;
+    background: rgba(5,5,5,0.92);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(10px); z-index: 100;
+  }
+  .nav-logo { font-family:'Orbitron',monospace; color:var(--green); font-size:1rem; letter-spacing:3px; text-transform:uppercase; }
+  .nav-links a { color:var(--dim); text-decoration:none; margin-left:28px; font-size:0.8rem; letter-spacing:2px; transition:color 0.3s; text-transform:uppercase; }
+  .nav-links a:hover { color:var(--green); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    text-align: center; padding: 100px 20px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* AVATAR */
+  .avatar-wrap {
+    position: relative; width: 140px; height: 140px; margin-bottom: 28px;
+  }
+  .avatar-ring {
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--green);
+    border-right-color: var(--cyan);
+    animation: spin 3s linear infinite;
+  }
+  .avatar-ring2 {
+    position: absolute; inset: -12px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-bottom-color: var(--green);
+    border-left-color: var(--cyan);
+    animation: spin 5s linear infinite reverse;
+    opacity: 0.5;
+  }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  .avatar-img {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+    display: block;
+    background: var(--card);
+  }
+  .avatar-placeholder {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 6px; cursor: pointer;
+    transition: border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .avatar-placeholder:hover { border-color: var(--green); }
+  .avatar-placeholder .upload-icon { font-size: 1.8rem; opacity: 0.5; }
+  .avatar-placeholder .upload-text { font-size: 0.62rem; color: var(--dim); letter-spacing: 1px; text-align: center; line-height: 1.4; }
+  .avatar-placeholder input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .avatar-status {
+    position: absolute; bottom: 6px; right: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--green); border: 2px solid var(--darker);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 8px var(--green)} 50%{box-shadow:0 0 16px var(--green)} }
+
+  .hero-tag { color:var(--green); font-size:0.78rem; letter-spacing:4px; margin-bottom:16px; opacity:0.7; }
+  .hero-name { font-family:'Orbitron',monospace; font-size:clamp(1.8rem,5vw,3.2rem); font-weight:900; color:#fff; line-height:1.15; text-shadow:0 0 40px #00ff4155; margin-bottom:14px; }
+  .hero-name span { color:var(--green); }
+  .hero-title { font-family:'Orbitron',monospace; font-size:clamp(0.9rem,2vw,1.1rem); color:var(--cyan); letter-spacing:4px; margin-bottom:10px; }
+  .hero-thm { font-size:0.78rem; color:var(--dim); letter-spacing:2px; margin-bottom:24px; }
+  .hero-thm a { color:var(--green); text-decoration:none; }
+  .hero-thm a:hover { text-decoration:underline; }
+  .typing-wrap { font-size:0.9rem; color:var(--dim); margin-bottom:36px; min-height:24px; }
+  .typing-wrap .cursor { display:inline-block; background:var(--green); width:8px; height:16px; vertical-align:middle; animation:blink 0.8s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .hero-btns { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .btn { padding:12px 28px; border:1px solid var(--green); background:transparent; color:var(--green); font-family:'Share Tech Mono',monospace; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; text-decoration:none; transition:all 0.3s; display:inline-block; }
+  .btn:hover { background:var(--green); color:#000; box-shadow:0 0 20px #00ff4155; }
+  .btn.cyan { border-color:var(--cyan); color:var(--cyan); }
+  .btn.cyan:hover { background:var(--cyan); color:#000; box-shadow:0 0 20px #00e5ff55; }
+
+  /* SECTIONS */
+  section { padding:90px 40px; max-width:1100px; margin:0 auto; }
+  .section-label { font-size:0.72rem; color:var(--green); letter-spacing:5px; text-transform:uppercase; margin-bottom:10px; }
+  .section-title { font-family:'Orbitron',monospace; font-size:clamp(1.4rem,3vw,2rem); color:#fff; margin-bottom:50px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+  @media(max-width:700px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-text { line-height:1.9; color:var(--text); font-size:0.88rem; }
+  .about-text p { margin-bottom:14px; }
+  .about-focus { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--green); padding:24px; }
+  .about-focus h4 { color:var(--green); font-size:0.8rem; letter-spacing:3px; margin-bottom:16px; text-transform:uppercase; }
+  .focus-item { display:flex; align-items:center; gap:10px; margin-bottom:12px; font-size:0.85rem; color:var(--text); }
+  .focus-item::before { content:'▸'; color:var(--cyan); }
+
+  /* SKILLS */
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+  .skill-card { background:var(--card); border:1px solid var(--border); padding:20px 24px; transition:border-color 0.3s,box-shadow 0.3s; }
+  .skill-card:hover { border-color:var(--green); box-shadow:0 0 20px #00ff4115; }
+  .skill-name { display:flex; justify-content:space-between; font-size:0.83rem; color:var(--text); margin-bottom:10px; letter-spacing:1px; }
+  .skill-pct { color:var(--green); }
+  .skill-bar { height:4px; background:#1a2a1a; overflow:hidden; }
+  .skill-fill { height:100%; background:linear-gradient(90deg,var(--green),var(--cyan)); width:0; transition:width 1.4s ease; box-shadow:0 0 8px var(--green); }
+
+  /* PROJECTS */
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
+  .project-card { background:var(--card); border:1px solid var(--border); padding:28px; transition:all 0.3s; position:relative; overflow:hidden; }
+  .project-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--green); transform:scaleY(0); transition:transform 0.3s; transform-origin:bottom; }
+  .project-card:hover { border-color:var(--green); box-shadow:0 0 25px #00ff4110; }
+  .project-card:hover::before { transform:scaleY(1); }
+  .project-tag { font-size:0.7rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .project-title { font-family:'Orbitron',monospace; font-size:0.95rem; color:#fff; margin-bottom:12px; }
+  .project-desc { font-size:0.82rem; color:var(--dim); line-height:1.7; margin-bottom:18px; }
+  .project-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { font-size:0.7rem; padding:4px 10px; border:1px solid var(--border); color:var(--dim); letter-spacing:1px; }
+  .project-link { display:inline-block; margin-top:14px; font-size:0.75rem; color:var(--green); text-decoration:none; letter-spacing:2px; border-bottom:1px solid var(--border); padding-bottom:2px; transition:border-color 0.3s; }
+  .project-link:hover { border-color:var(--green); }
+
+  /* CERTS */
+  .certs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+  .cert-card { background:var(--card); border:1px solid var(--border); padding:30px 24px; text-align:center; transition:all 0.3s; }
+  .cert-card:hover { border-color:var(--cyan); box-shadow:0 0 20px #00e5ff15; transform:translateY(-4px); }
+  .cert-icon { font-size:2.4rem; margin-bottom:16px; }
+  .cert-name { font-family:'Orbitron',monospace; font-size:0.85rem; color:var(--cyan); margin-bottom:8px; }
+  .cert-status { font-size:0.72rem; color:var(--dim); letter-spacing:2px; text-transform:uppercase; }
+  .cert-status.active { color:var(--green); }
+
+  /* CONTACT */
+  .contact-wrap { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+  @media(max-width:700px){ .contact-wrap{ grid-template-columns:1fr; } }
+  .contact-info p { font-size:0.85rem; color:var(--dim); line-height:1.9; margin-bottom:30px; }
+  .contact-link { display:flex; align-items:center; gap:14px; margin-bottom:18px; text-decoration:none; color:var(--text); font-size:0.83rem; transition:color 0.3s; padding:14px 18px; border:1px solid var(--border); background:var(--card); }
+  .contact-link:hover { border-color:var(--green); color:var(--green); }
+  .contact-link .icon { font-size:1.1rem; }
+  .terminal-box { background:#050d05; border:1px solid var(--border); padding:24px; font-size:0.8rem; line-height:2; }
+  .terminal-box .prompt { color:var(--green); }
+  .terminal-box .cmd { color:var(--cyan); }
+  .terminal-box .out { color:var(--dim); }
+
+  footer { position:relative; z-index:1; text-align:center; padding:30px; border-top:1px solid var(--border); font-size:0.75rem; color:var(--dim); letter-spacing:2px; }
+  footer span { color:var(--green); }
+
+  body::after { content:''; position:fixed; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); animation:scan 4s linear infinite; z-index:200; pointer-events:none; opacity:0.3; }
+  @keyframes scan { from{top:0} to{top:100vh} }
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<nav>
+  <div class="nav-logo">CyberShxdow</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certs">Certs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%;padding-top:100px;">
+  <div class="hero-tag">&gt; Initializing Portfolio... Access Granted_</div>
+
+  <!-- AVATAR -->
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar-ring2"></div>
+    <div id="avatarContainer">
+      <div class="avatar-placeholder" id="avatarPlaceholder">
+        <span class="upload-icon">👤</span>
+        <span class="upload-text">Click to<br>upload photo</span>
+        <input type="file" accept="image/*" id="avatarInput">
+      </div>
+    </div>
+    <div class="avatar-status"></div>
+  </div>
+
+  <div class="hero-name">Abraham <span>Emmanuel</span><br>Chukwuemeka</div>
+  <div class="hero-title">Cybersecurity Specialist</div>
+  <div class="hero-thm">TryHackMe: <a href="https://tryhackme.com/p/CyberShxdow" target="_blank">@CyberShxdow</a></div>
+  <div class="typing-wrap"><span id="typing"></span><span class="cursor"></span></div>
+  <div class="hero-btns">
+    <a href="#projects" class="btn">View Projects</a>
+    <a href="#contact" class="btn cyan">Get In Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">&gt; whoami</div>
+  <div class="section-title">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a cybersecurity professional with a strong foundation in network security and penetration testing. Currently advancing my expertise through ISC2 and CCNA certifications, I'm committed to building secure systems and defending digital infrastructure.</p>
+      <p>My approach combines analytical thinking with hands-on practice — completing real-world rooms on TryHackMe as <strong style="color:var(--green)">CyberShxdow</strong> to sharpen both offensive and defensive skill sets.</p>
+      <p>I believe in continuous learning and staying ahead of the evolving threat landscape.</p>
+    </div>
+    <div class="about-focus">
+      <h4>// Current Focus</h4>
+      <div class="focus-item">ISC2 Certification Track</div>
+      <div class="focus-item">CCNA — Networking Fundamentals</div>
+      <div class="focus-item">Penetration Testing Basics</div>
+      <div class="focus-item">Network Security Principles</div>
+      <div class="focus-item">Hands-on CTF & Lab Practice</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">&gt; ls skills/</div>
+  <div class="section-title">Skills & Competencies</div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-name"><span>Problem Solving</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+    <div class="skill-card"><div class="skill-name"><span>Network Security</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div></div>
+    <div class="skill-card"><div class="skill-name"><span>Penetration Testing</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" data-w="60"></div></div></div>
+    <div class="skill-card"><div class="skill-name"><span>Basic Cybersecurity Tasks</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+    <div class="skill-card"><div class="skill-name"><span>Networking (CCNA)</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div></div>
+    <div class="skill-card"><div class="skill-name"><span>Security Fundamentals (ISC2)</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">&gt; cat projects.log</div>
+  <div class="section-title">Projects & TryHackMe Rooms</div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-tag">// TryHackMe &nbsp;✓ Completed</div>
+      <div class="project-title">Offensive Security Intro</div>
+      <div class="project-desc">Explored the fundamentals of ethical hacking and offensive security. Learned how attackers think and operated basic exploitation techniques in a guided lab environment.</div>
+      <div class="project-tags">
+        <span class="tag">Ethical Hacking</span>
+        <span class="tag">Exploitation</span>
+        <span class="tag">Recon</span>
+      </div>
+      <a class="project-link" href="https://tryhackme.com/room/offensivesecurityintro" target="_blank">▸ View Room</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">// TryHackMe &nbsp;✓ Completed</div>
+      <div class="project-title">Defensive Security Intro</div>
+      <div class="project-desc">Gained hands-on experience with defensive security concepts including threat intelligence, SIEM basics, and incident response workflows used in real SOC environments.</div>
+      <div class="project-tags">
+        <span class="tag">SIEM</span>
+        <span class="tag">Incident Response</span>
+        <span class="tag">Threat Intel</span>
+      </div>
+      <a class="project-link" href="https://tryhackme.com/room/defensivesecurityintro" target="_blank">▸ View Room</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">// TryHackMe &nbsp;🔄 In Progress</div>
+      <div class="project-title">More Rooms Coming...</div>
+      <div class="project-desc">Actively working through new TryHackMe rooms and challenges as <strong style="color:var(--green)">CyberShxdow</strong>. Follow along to see new completions added here.</div>
+      <div class="project-tags">
+        <span class="tag">CTF</span>
+        <span class="tag">Labs</span>
+        <span class="tag">Ongoing</span>
+      </div>
+      <a class="project-link" href="https://tryhackme.com/p/CyberShxdow" target="_blank">▸ View Profile</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-label">&gt; cat certifications.txt</div>
+  <div class="section-title">Certifications</div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🛡️</div>
+      <div class="cert-name">ISC2 CC</div>
+      <div class="cert-status active">In Progress</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚔️</div>
+      <div class="cert-name">CEH Essentials</div>
+      <div class="cert-status active">Completed</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🌐</div>
+      <div class="cert-name">CCNA</div>
+      <div class="cert-status">Candidate</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">&gt; ping contact</div>
+  <div class="section-title">Get In Touch</div>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p>Open to opportunities, collaborations, and cybersecurity discussions. Feel free to reach out through any of the channels below.</p>
+      <a class="contact-link" href="mailto:Abrahamemmanuelchukwuemeka@gmail.com">
+        <span class="icon">✉</span>
+        <span>Abrahamemmanuelchukwuemeka@gmail.com</span>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/emmanuel-abraham-4a4141407" target="_blank">
+        <span class="icon">🔗</span>
+        <span>linkedin.com/in/emmanuel-abraham</span>
+      </a>
+      <a class="contact-link" href="https://tryhackme.com/p/CyberShxdow" target="_blank">
+        <span class="icon">💻</span>
+        <span>tryhackme.com/p/CyberShxdow</span>
+      </a>
+    </div>
+    <div class="terminal-box">
+      <div><span class="prompt">user@sec:~$</span> <span class="cmd">./connect --target CyberShxdow</span></div>
+      <div><span class="out">Resolving target...</span></div>
+      <div><span class="out">Connection established ✓</span></div>
+      <div><span class="prompt">user@sec:~$</span> <span class="cmd">get --info</span></div>
+      <div><span class="out">Role: Cybersecurity Specialist</span></div>
+      <div><span class="out">THM: CyberShxdow</span></div>
+      <div><span class="out">Status: Available for opportunities</span></div>
+      <div><span class="out">Location: Nigeria 🇳🇬</span></div>
+      <div><span class="prompt">user@sec:~$</span> <span class="cursor" style="display:inline-block;background:#00ff41;width:8px;height:14px;vertical-align:middle;animation:blink 0.8s infinite;"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & Built by <span>Abraham Emmanuel Chukwuemeka</span> &nbsp;|&nbsp; <span>CyberShxdow</span> &nbsp;|&nbsp; Cybersecurity Specialist</p>
+</footer>
+
+<script>
+  // MATRIX RAIN
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]|<>';
+  const cols = Math.floor(canvas.width / 18);
+  const drops = Array(cols).fill(1);
+  setInterval(() => {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41'; ctx.font = '14px Share Tech Mono';
+    drops.forEach((y, i) => {
+      ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 18, y * 18);
+      if (y * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }, 50);
+
+  // TYPING EFFECT
+  const lines = ['Securing networks, one packet at a time.', 'ISC2 | CCNA | CEH — Always learning.', 'Turning vulnerabilities into strengths.', 'Defending the digital frontier.'];
+  let li = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typing');
+  function type() {
+    const cur = lines[li];
+    if (!deleting) {
+      el.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { deleting = true; setTimeout(type, 2000); return; }
+    } else {
+      el.textContent = cur.slice(0, --ci);
+      if (ci === 0) { deleting = false; li = (li + 1) % lines.length; }
+    }
+    setTimeout(type, deleting ? 40 : 70);
+  }
+  type();
+
+  // SKILL BARS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(b => b.style.width = b.dataset.w + '%');
+      }
+    });
+  }, { threshold: 0.3 });
+  document.getElementById('skills') && observer.observe(document.getElementById('skills'));
+
+  // AVATAR UPLOAD
+  document.getElementById('avatarInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const container = document.getElementById('avatarContainer');
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'avatar-img';
+      img.alt = 'Profile Photo';
+      container.innerHTML = '';
+      container.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
